@@ -1,0 +1,16 @@
+{
+  "name": "instagram-downloader",
+  "version": "1.0.0",
+  "description": "Instagram downloader",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo Test"
+  },
+  "author": "mby444",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "instagram-url-downloader": "^1.1.0"
+  }
+}
