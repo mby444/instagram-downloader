@@ -1,0 +1,5 @@
+body {
+    background-image: linear-gradient(180deg, #6600eb, #ffe552, #ff6666);
+    background-size: cover;
+    min-height: 100vh;
+}
