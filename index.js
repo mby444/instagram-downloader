@@ -31,9 +31,9 @@ app.post("/", (req, res) => {
             });
         });
     } catch (err) {
-        res.render("index", {
-            ready: false,
-            error: err.message
+        res.render("errors/error", {
+            title: "Error",
+            message: err
         });
     }
 });
@@ -46,7 +46,10 @@ app.get("/download/:file", (req, res) => {
 
 app.use("/", (req, res) => {
     res.status(404);
-    res.send("Error 404 Not Found");
+    res.render("errors/error", {
+        title: "404",
+        message: "Error: 404 Not Found"
+    });
 });
 
 app.listen(port, () => {

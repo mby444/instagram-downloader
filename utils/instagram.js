@@ -12,9 +12,14 @@ const checkDirExist = (pathname) => {
     }
 }
 
-// 'C:\\node-project\\instagram-downloader\\Medias\\CZhMnAVlzTd\\Image.jpg'
+const removeMedias = () => {
+    const medias = path.join(dirRoot, "Medias");
+    if(!fs.existsSync(medias)) return;
+    fs.rmSync(medias, { recursive: true, force: true });
+}
 
 const getMedia = (url, callback) => {
+    removeMedias();
     const downloader = new Downloader(url);
     const media = downloader.Media;
     callback(media);
