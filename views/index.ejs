@@ -17,6 +17,49 @@
         <input type="url" name="url" placeholder="Instagram URL" class="input form-control" required>
         <input type="submit" value="Download" class="btn-submit btn btn-primary">
     </form>
+    <div id="content" class="container-fluid mt-3 mb-3">
+        <% if (error) { %>
+            <div class="alert alert-danger">
+                <%= error %>
+            </div>
+        <% } %>
+        <% if (ready) { %>
+            <button id="download-btn" class="btn btn-success"><a href="/download/<%= movedFile %>" id="download-text" class="text-white text-center" download>Download</a></button>
+            <table class="table container mt-5 mb-5 text-muted">
+                <thead>
+                    <tr>
+                        <th scope="row" colspan="2" class="text-center">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Caption</td>
+                        <td><%= media.caption.text %></td>
+                    </tr>
+                    <tr>
+                        <td>Taken Date</td>
+                        <td><%= media.takenDate %></td>
+                    </tr>
+                    <tr>
+                        <td>Media Type</td>
+                        <td><%= media.MediaType %></td>
+                    </tr>
+                    <tr>
+                        <td>Likes</td>
+                        <td><%= media.likeCount %></td>
+                    </tr>
+                    <tr>
+                        <td>Comment</td>
+                        <td><%= media.commentCount %></td>
+                    </tr>
+                    <tr>
+                        <td>Width &times; Height</td>
+                        <td><%= media.sizes.width %> &times; <%= media.sizes.height %></td>
+                    </tr>
+                </tbody>
+            </table>
+        <% } %> 
+    </div>
     <script src="js/main.js"></script>
 </body>
 </html>
