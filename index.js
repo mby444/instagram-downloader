@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
-const { getMedia, downloadMedia, moveDownloaded } = require("./utils/instagram");
+const fs = require("fs");
+const { getMedia, downloadMedia, moveDownloaded, removeForce } = require("./utils/instagram");
 const { dirRoot } = require("./config");
 const app = express();
 const port = process.env.PORT || 3000;
@@ -10,6 +11,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
+    res.status(200);
     res.render("index", {
         ready: false,
         error: false
@@ -19,18 +21,32 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
     let url = req.body.url.split("?")[0];
     try {
-        getMedia(url, async (media) => {
-            const file = await downloadMedia(media);
-            const movedFilePath = moveDownloaded(file, media);
-            const movedFile = path.basename(movedFilePath);
-            res.render("index", {
-                ready: true,
-                error: false,
-                movedFile,
-                media
-            });
+        getMedia(url, (media) => {
+            downloadMedia(media)
+                .then((file) => {
+                    console.log(`Download: ${file}`);
+                    return moveDownloaded(file, media);
+                })
+                .then((movedFilePath) => {
+                    const movedFile = path.basename(movedFilePath);
+                    res.status(200);
+                    res.render("index", {
+                        ready: true,
+                        error: false,
+                        movedFile,
+                        media
+                    });
+                })
+                .catch((err) => {
+                    res.status(400);
+                    res.render("errors/error", {
+                        title: "Error Downloading Media",
+                        message: err
+                    });
+                });
         });
     } catch (err) {
+        res.status(400);
         res.render("errors/error", {
             title: "Error",
             message: err
@@ -40,7 +56,14 @@ app.post("/", (req, res) => {
 
 app.get("/download/:file", (req, res) => {
     const file = req.params.file;
-    const filepath = `${path.join(dirRoot, "views/downloads")}/${file}`;
+    const filepath = path.join(dirRoot, "views", "downloads", file);
+    if(!fs.existsSync(filepath)){
+        return res.status(404).render("errors/error", {
+            title: "Error",
+            message: "404 File Not Found"
+        });
+    }
+    res.status(200);
     res.sendFile(filepath);
 });
 

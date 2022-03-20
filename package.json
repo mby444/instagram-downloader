@@ -4,7 +4,8 @@
   "description": "Instagram downloader",
   "main": "index.js",
   "scripts": {
-    "test": "echo Test"
+    "test": "echo Test",
+    "start": "node index.js"
   },
   "author": "mby444",
   "license": "Apache-2.0",
@@ -12,5 +13,8 @@
     "ejs": "^3.1.6",
     "express": "^4.17.3",
     "instagram-url-downloader": "^1.1.0"
+  },
+  "engines": {
+    "node": "16.x" 
   }
 }
