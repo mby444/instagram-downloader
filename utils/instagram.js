@@ -2,7 +2,7 @@ const { downloader: Downloader } = require("instagram-url-downloader");
 const fs = require("fs");
 const path = require("path");
 const { dirRoot } = require("../config");
-const { escapeTags } = require("./format-string");
+const { escapeTags, dateEU } = require("./format-string");
 
 const checkDirExist = (pathname) => {
     let dir = path.dirname(pathname);
@@ -19,20 +19,11 @@ const fileExist = (file) => {
     return fs.existsSync(file);
 }
 
-const removeForce = (file) => {
-    if(!fs.existsSync(file)){
-        console.log(`removeForce(): File or directory not exists`);
-        return false;
-    }
-    fs.rmSync(file, { recursive: true, force: true });
-    console.log(`Delete: ${file}`);
-    return true;
-}
-
 const getMedia = (url, callback) => {
     const downloader = new Downloader(url);
     const media = downloader.Media;
     media.caption.text = escapeTags(media.caption.text).replace(/\n/gim, "<br>");
+    media.takenDate = dateEU(media.takenDate.split(",")[0]) + "," + media.takenDate.split(",")[1];
     callback(media);
     console.log(media);
 }
@@ -60,4 +51,4 @@ const moveDownloaded = (file, media) => {
     });
 }
 
-module.exports = { getMedia, downloadMedia, moveDownloaded, removeForce };
+module.exports = { getMedia, downloadMedia, moveDownloaded };
