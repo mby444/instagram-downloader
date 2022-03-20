@@ -11,7 +11,6 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-    res.status(200);
     res.render("index", {
         ready: false,
         error: false
@@ -29,7 +28,6 @@ app.post("/", (req, res) => {
                 })
                 .then((movedFilePath) => {
                     const movedFile = path.basename(movedFilePath);
-                    res.status(200);
                     res.render("index", {
                         ready: true,
                         error: false,
@@ -38,7 +36,6 @@ app.post("/", (req, res) => {
                     });
                 })
                 .catch((err) => {
-                    res.status(400);
                     res.render("errors/error", {
                         title: "Error Downloading Media",
                         message: err
@@ -46,7 +43,6 @@ app.post("/", (req, res) => {
                 });
         });
     } catch (err) {
-        res.status(400);
         res.render("errors/error", {
             title: "Error",
             message: err
@@ -63,7 +59,6 @@ app.get("/download/:file", (req, res) => {
             message: "404 File Not Found"
         });
     }
-    res.status(200);
     res.sendFile(filepath);
 });
 
