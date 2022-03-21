@@ -39,7 +39,7 @@ const downloadMedia = (media) => {
 const moveDownloaded = (file, media) => {
     return new Promise((resolve, reject) => {
         if(!fileExist(file)){
-            reject("Media not exists");
+            reject("Cannot find your URL");
             return false;
         }
         const newFilename = media.ID + path.extname(file);

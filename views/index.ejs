@@ -34,6 +34,14 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>User</td>
+                        <td>&commat;<%= media.user.username %></td>
+                    </tr>
+                    <tr>
+                        <td>Profile picture</td>
+                        <td>[<a href="<%= media.user.profilePicture %>" style="text-decoration:none;">See profile picture</a>]</td>
+                    </tr>
+                    <tr>
                         <td>Caption</td>
                         <td><%- media.caption.text %></td>
                     </tr>
