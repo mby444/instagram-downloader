@@ -1,4 +1,4 @@
 Medias/
-# node_modules/
+node_modules/
 views/downloads/
 media.json
