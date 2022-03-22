@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 app.post("/", async (req, res) => {
     let url = req.body.url.split("?")[0];
     try {
-        let media = await getMedia(url);
+        let media = await getMedia(url); console.log(media);
         let mediaUrl = await getMediaUrl(media);
         res.render("index", {
             ready: true,

@@ -31,11 +31,11 @@
             <% if (mediaUrl.length > 1) { %>
                 <% mediaWidth = mediaUrl[0].width; mediaHeight = mediaUrl[0].height; %>
                 <% mediaUrl.forEach((slide, i) => { %>
-                    <button class="download-btn btn btn-success d-block"><a href="<%= slide.media %>" target="_blank" class="download-text text-white text-center" download>Download (slide <%= i + 1 %>)</a></button>
+                    <button class="download-btn-slide btn btn-success d-block mt-2 mb-2"><a href="<%= slide.media %>" target="_blank" class="download-text-slide text-white text-center">Download (slide <%= i + 1 %>)</a></button>
                 <% }) %>
             <% } else { %>
-                <% mediaWidth = media[media.MediaType].width; mediaHeight = media[media.MediaType].height; %>
-                <button class="download-btn btn btn-success d-block"><a href="<%= mediaUrl %>" target="_blank" class="download-text text-white text-center" download>Download</a></button>
+                <% mediaWidth = media.sizes.width; mediaHeight = media.sizes.height; %>
+                <button class="download-btn btn btn-success d-block"><a href="<%= mediaUrl %>" target="_blank" class="download-text text-white text-center">Download</a></button>
             <% } %>
             <table class="table container mt-5 mb-5 text-muted">
                 <thead>
@@ -50,7 +50,7 @@
                     </tr>
                     <tr>
                         <td>Profile picture</td>
-                        <td><a href="<%= media.user.profilePicture %>" class="text-secondary">See profile picture</a></td>
+                        <td><a href="<%= media.user.profilePicture %>" target="_blank" class="text-secondary">See profile picture</a></td>
                     </tr>
                     <tr>
                         <td>Caption</td>

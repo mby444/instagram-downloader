@@ -41,14 +41,15 @@ const getMediaUrl = (media) => {
                 return [...media.medias];
             },
             image(){
-                return [media.Image.url];
+                return [media.Image];
             },
             video(){
-                return [media.Video.url];
+                return [media.Video];
             }
         };
         if(type === "sidecar" || type === "image" || type === "video"){
             resolve(action[type]());
+            console.log(type);
         }
         reject("Media type not found!");
     });

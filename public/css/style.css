@@ -17,6 +17,19 @@ body {
     padding: 2px 42%;
 }
 
+.download-btn-slide {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.download-text-slide {
+    text-decoration: none;
+    padding: 2px 25%;
+}
+
 .table {
     background-color: #ffffff65;
 }
