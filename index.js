@@ -1,8 +1,5 @@
 const express = require("express");
-const path = require("path");
-const fs = require("fs");
 const { getMedia, getMediaUrl } = require("./utils/instagram");
-const { dirRoot } = require("./config");
 const app = express();
 const port = process.env.PORT || 3000;
 

@@ -25,12 +25,17 @@
             </div>
         <% } %>
         <% if (ready) { %>
-            <% if (mediaUrl.length > 0) { %>
-                <% mediaUrl.forEach((url, i) => { %>
-                    <button class="download-btn btn btn-success"><a href="<%= url %>" target="_blank" class="download-text text-white text-center" download>Download (slide <%= i + 1 %>)</a></button>
+            <%
+              var mediaWidth, mediaHeight;
+            %> 
+            <% if (mediaUrl.length > 1) { %>
+                <% mediaWidth = mediaUrl[0].width; mediaHeight = mediaUrl[0].height; %>
+                <% mediaUrl.forEach((slide, i) => { %>
+                    <button class="download-btn btn btn-success d-block"><a href="<%= slide.media %>" target="_blank" class="download-text text-white text-center" download>Download (slide <%= i + 1 %>)</a></button>
                 <% }) %>
             <% } else { %>
-                <button class="download-btn btn btn-success"><a href="<%= mediaUrl %>" target="_blank" class="download-text text-white text-center" download>Download</a></button>
+                <% mediaWidth = media[media.MediaType].width; mediaHeight = media[media.MediaType].height; %>
+                <button class="download-btn btn btn-success d-block"><a href="<%= mediaUrl %>" target="_blank" class="download-text text-white text-center" download>Download</a></button>
             <% } %>
             <table class="table container mt-5 mb-5 text-muted">
                 <thead>
@@ -69,7 +74,7 @@
                     </tr>
                     <tr>
                         <td>Width &times; Height</td>
-                        <td><%= media.sizes.width %> &times; <%= media.sizes.height %></td>
+                        <td><%= mediaWidth %> &times; <%= mediaHeight %></td>
                     </tr>
                 </tbody>
             </table>
