@@ -25,7 +25,13 @@
             </div>
         <% } %>
         <% if (ready) { %>
-            <button id="download-btn" class="btn btn-success"><a href="/download/<%= movedFile %>" id="download-text" target="_blank" class="text-white text-center" download>Download</a></button>
+            <% if (mediaUrl.length > 0) { %>
+                <% mediaUrl.forEach((url, i) => { %>
+                    <button class="download-btn btn btn-success"><a href="<%= url %>" target="_blank" class="download-text text-white text-center" download>Download (slide <%= i + 1 %>)</a></button>
+                <% }) %>
+            <% } else { %>
+                <button class="download-btn btn btn-success"><a href="<%= mediaUrl %>" target="_blank" class="download-text text-white text-center" download>Download</a></button>
+            <% } %>
             <table class="table container mt-5 mb-5 text-muted">
                 <thead>
                     <tr>

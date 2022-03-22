@@ -19,36 +19,39 @@ const fileExist = (file) => {
     return fs.existsSync(file);
 }
 
-const getMedia = (url, callback) => {
-    const downloader = new Downloader(url);
-    const media = downloader.Media;
-    media.caption.text = escapeTags(media.caption.text).replace(/\n/gim, "<br>");
-    media.takenDate = dateEU(media.takenDate.split(",")[0]) + "," + media.takenDate.split(",")[1];
-    callback(media);
-    console.log(media);
-}
-
-const downloadMedia = (media) => {
+const getMedia = (url) => {
     return new Promise((resolve, reject) => {
-        const downloaded = media.download();
-        const file = downloaded.File;
-        resolve(file);
-    });
-}
-
-const moveDownloaded = (file, media) => {
-    return new Promise((resolve, reject) => {
-        if(!fileExist(file)){
-            reject("Cannot find your URL");
+        const downloader = new Downloader(url);
+        const media = downloader.Media;
+        if(!media){
+            reject("Can't find URL");
             return false;
         }
-        const newFilename = media.ID + path.extname(file);
-        const newpath = path.join(dirRoot, "views", "downloads", newFilename);
-        checkDirExist(newpath);
-        fs.renameSync(file, newpath);
-        console.log(`Move from: ${file}\nMove to: ${newpath}`);
-        resolve(newpath)
+        media.caption.text = escapeTags(media.caption.text).replace(/\n/gim, "<br>");
+        media.takenDate = dateEU(media.takenDate.split(",")[0]) + "," + media.takenDate.split(",")[1];
+        resolve(media);
     });
 }
 
-module.exports = { getMedia, downloadMedia, moveDownloaded };
+const getMediaUrl = (media) => {
+    return new Promise((resolve, reject) => {
+        let type = media.MediaType.toLowerCase();
+        const action = {
+            sidecar(){
+                return [...media.medias];
+            },
+            image(){
+                return [media.Image.url];
+            },
+            video(){
+                return [media.Video.url];
+            }
+        };
+        if(type === "sidecar" || type === "image" || type === "video"){
+            resolve(action[type]());
+        }
+        reject("Media type not found!");
+    });
+}
+
+module.exports = { getMedia, getMediaUrl };
