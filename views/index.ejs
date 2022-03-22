@@ -25,7 +25,7 @@
             </div>
         <% } %>
         <% if (ready) { %>
-            <button id="download-btn" class="btn btn-success"><a href="/download/<%= movedFile %>" id="download-text" class="text-white text-center" download>Download</a></button>
+            <button id="download-btn" class="btn btn-success"><a href="/download/<%= movedFile %>" id="download-text" target="_blank" class="text-white text-center" download>Download</a></button>
             <table class="table container mt-5 mb-5 text-muted">
                 <thead>
                     <tr>
@@ -34,12 +34,12 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>User</td>
-                        <td>&commat;<%= media.user.username %></td>
+                        <td style="width:30%;">User</td>
+                        <td style="width:70%">&commat;<%= media.user.username %></td>
                     </tr>
                     <tr>
                         <td>Profile picture</td>
-                        <td>[<a href="<%= media.user.profilePicture %>" style="text-decoration:none;">See profile picture</a>]</td>
+                        <td><a href="<%= media.user.profilePicture %>" class="text-secondary">See profile picture</a></td>
                     </tr>
                     <tr>
                         <td>Caption</td>
