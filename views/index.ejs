@@ -20,7 +20,7 @@
     </form>
     <div id="content" class="container-fluid mt-3 mb-3">
         <% if (error) { %>
-            <div class="alert alert-danger">
+            <div class="alert alert-danger container text-center">
                 <%= error %>
             </div>
         <% } %>
@@ -31,7 +31,7 @@
             <% if (mediaUrl.length > 1) { %>
                 <% mediaWidth = mediaUrl[0].width; mediaHeight = mediaUrl[0].height; %>
                 <% mediaUrl.forEach((slide, i) => { %>
-                    <button class="download-btn-slide btn btn-success d-block mt-2 mb-2"><a href="<%= slide.media %>" target="_blank" class="download-text-slide text-white text-center">Download (slide <%= i + 1 %>)</a></button>
+                    <button class="download-btn-slide btn btn-success d-block mt-3 mb-3"><a href="<%= slide.media %>" target="_blank" class="download-text-slide text-white text-center">Download (slide <%= i + 1 %>)</a></button>
                 <% }) %>
             <% } else { %>
                 <% mediaWidth = media.sizes.width; mediaHeight = media.sizes.height; %>

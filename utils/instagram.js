@@ -4,36 +4,20 @@ const path = require("path");
 const { dirRoot } = require("../config");
 const { escapeTags, dateEU } = require("./format-string");
 
-const checkDirExist = (pathname) => {
-    let dir = path.dirname(pathname);
-    if(dir){
-        if(!fs.existsSync(dir)){
-            fs.mkdirSync(dir, { recursive: true });
-            console.log(`Make directory: ${dir}`);
-        }
-    }
-}
-
-const fileExist = (file) => {
-    if(!file) return false;
-    return fs.existsSync(file);
-}
-
 const getMedia = (url) => {
+    console.log("getMedia...");
     return new Promise((resolve, reject) => {
         const downloader = new Downloader(url);
         const media = downloader.Media;
-        if(!media){
-            reject("Can't find URL");
-            return false;
-        }
         media.caption.text = escapeTags(media.caption.text).replace(/\n/gim, "<br>");
         media.takenDate = dateEU(media.takenDate.split(",")[0]) + "," + media.takenDate.split(",")[1];
         resolve(media);
+        console.log("getMedia: success");
     });
 }
 
 const getMediaUrl = (media) => {
+    console.log("getMediaUrl...");
     return new Promise((resolve, reject) => {
         let type = media.MediaType.toLowerCase();
         const action = {
@@ -44,14 +28,16 @@ const getMediaUrl = (media) => {
                 return [media.Image];
             },
             video(){
-                return [media.Video];
+                return [media.Video.url];
             }
         };
         if(type === "sidecar" || type === "image" || type === "video"){
             resolve(action[type]());
-            console.log(type);
+            console.log("getMediaUrl: success");
+            return false;
         }
         reject("Media type not found!");
+        console.log("getMediaUrl: failed");
     });
 }
 
