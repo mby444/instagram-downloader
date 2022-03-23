@@ -33,3 +33,12 @@ body {
 .table {
     background-color: #ffffff65;
 }
+
+.loader-container {
+    height: 65px;
+}
+
+.loader {
+    width: 45px;
+    height: 45px;
+}
